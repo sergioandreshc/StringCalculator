@@ -16,10 +16,19 @@ public class StringCalculator {
 	 * @param version integer value that chooses the version in which the method will work the grater
 	 * the version the more functionalities it has  
 	 * <ol>
-	 * <li>simple String calculator It takes 0, 1 or 2 numbers, and will return their sum (for an 
-	 * empty string it will return 0) for example “” or “1” or “1,2” if more tan 2 numbers are provided
-	 * they are skipped if other characters different to decimals or, are on the string they are skipped</li>
-	 * <li>on going...</li>
+	 * <li>empty string it will return 0) for example “” or “1” or “1,2” if more tan 2 numbers are 
+	 * provided they are skipped,  if other characters different to decimals or "," are on the string 
+	 * they are skipped</li>
+	 * <li>It implements the functionality of the last version, additionally it Allows the Add method 
+	 * to handle an unknown amount of numbers.</li>
+	 * <li>It implements the functionality of the last version, additionally it Allows the Add method 
+	 * to handle new lines between numbers (instead of commas).</li>
+	 * <li>It implements the functionality of the last version, additionally it Allows the Add method 
+	 * to Support different delimiters.</li>
+	 * <li>It implements the functionality of the last version, additionally it prevents the sum of 
+	 * negative numbers,Calling Add with a negative number will throw an exception “negatives not 
+	 * allowed” - and the negative that was passed. if there are multiple negatives, It shows all of
+	 *  them in the exception message.</li>
 	 * </ol> 
 	 * @return the sum of the integers on the string
 	 */
@@ -82,7 +91,7 @@ public class StringCalculator {
 				if(number.length()>0 && number.matches("\\d+")){
 					returnValue += Integer.valueOf(number);
 				}else if(number.length()>0){
-					throw new IllegalArgumentException("The number: \""+number+"\" is not in the corret format");					
+					throw new IllegalArgumentException("The number: \""+number+"\" is not in the correct format");					
 				}
 			}
 			
@@ -104,13 +113,13 @@ public class StringCalculator {
 					if(number.contains("-")){
 						throw new IllegalArgumentException("negative numbers are not allowed");					
 					}
-					throw new IllegalArgumentException("The number: \""+number+"\" is not in the corret format");					
+					throw new IllegalArgumentException("The number: \""+number+"\" is not in the correct format");					
 				}
 			}
 			
 			return returnValue;
 		default:
-			throw new IllegalArgumentException("Version: {"+version+"} is no suported");
+			throw new IllegalArgumentException("Version: {"+version+"} is no supported");
 		}
 		
 	}
