@@ -1,13 +1,40 @@
 package app;
 
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
+import gui.StringCalculatorFrame;
+
 public class AppLlauncher {
 		
+	private static StringBuffer testingLog;
 		/**
 		 * Launches the application creating an StringCalculator object and using its methods to 
 		 * calculate some operations with strings  
 		 * @param args
 		 */
 		public static void main(String[] args) {
+			
+
+		    try {
+		            // Set cross-platform Java L&F (also called "Metal")
+		        UIManager.setLookAndFeel(
+		            UIManager.getSystemLookAndFeelClassName());
+		    } 
+		    catch (UnsupportedLookAndFeelException e) {
+		       // handle exception
+		    }
+		    catch (ClassNotFoundException e) {
+		       // handle exception
+		    }
+		    catch (InstantiationException e) {
+		       // handle exception
+		    }
+		    catch (IllegalAccessException e) {
+		       // handle exception
+		    }
+			testingLog = new StringBuffer();
+			testingLog.append("############## Testing Add Aplication ##############\n");
 			// Test of version one
 			test(null, 9);
 			test("", 9);
@@ -42,6 +69,13 @@ public class AppLlauncher {
 			test("//t\n2t4t6t8", 5);
 			test("//t\n2t4t-6t8", 5);
 			test("//t\n2t4cct-6t8", 5);
+			test("//t\n2t-4cct-6t-8", 5);
+			
+			System.out.println(testingLog.toString());
+			
+			StringCalculatorFrame frame = new StringCalculatorFrame();
+			frame.getTestingArea().setText(testingLog.toString());
+			frame.setVisible(true);
 		}
 
 		/**
@@ -50,10 +84,17 @@ public class AppLlauncher {
 		 * @param version version parameter of the tested method
 		 */
 		public static void test(final String toAdd, int version){
-			System.out.println();
-			System.out.println("Call StringCalculator.add function with arguments: {"+toAdd+"} and {"+version+"}");
-			try{System.out.println(StringCalculator.add(toAdd,version));}
-			catch (Exception e) {System.out.println(e.getMessage());}
+			
+			testingLog.append("\n");
+			testingLog.append("Call add function with arguments: {"+(toAdd==null?"null":toAdd).
+					concat("} and {").concat(String.valueOf(version)).concat("}\n"));
+			try{
+				testingLog.append(StringCalculator.add(toAdd,version));
+				testingLog.append("\n");
+			}
+			catch (Exception e) {
+				testingLog.append(e.getMessage().concat("\n"));
+			}
 		}
  }
 

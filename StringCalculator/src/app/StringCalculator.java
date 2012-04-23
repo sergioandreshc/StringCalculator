@@ -16,7 +16,8 @@ public class StringCalculator {
 	 * @param version integer value that chooses the version in which the method will work the grater
 	 * the version the more functionalities it has  
 	 * <ol>
-	 * <li>empty string it will return 0) for example “” or “1” or “1,2” if more tan 2 numbers are 
+	 * <li>Simple string calculator The method can take 0, 1 or 2 numbers, and will return their sum 
+	 * (for an empty string it will return 0) for example “” or “1” or “1,2” if more than 2 numbers are 
 	 * provided they are skipped,  if other characters different to decimals or "," are on the string 
 	 * they are skipped</li>
 	 * <li>It implements the functionality of the last version, additionally it Allows the Add method 
@@ -26,8 +27,8 @@ public class StringCalculator {
 	 * <li>It implements the functionality of the last version, additionally it Allows the Add method 
 	 * to Support different delimiters.</li>
 	 * <li>It implements the functionality of the last version, additionally it prevents the sum of 
-	 * negative numbers,Calling Add with a negative number will throw an exception “negatives not 
-	 * allowed” - and the negative that was passed. if there are multiple negatives, It shows all of
+	 * negative numbers,Calling Add with a negative number will throw an exception “Negatives not 
+	 * allowed” - and the negative that was passed. If there are multiple negatives, It shows all of
 	 *  them in the exception message.</li>
 	 * </ol> 
 	 * @return the sum of the integers on the string
@@ -66,7 +67,7 @@ public class StringCalculator {
 
 			toAdd = toAdd.replaceAll("[^,\n\\d]*", "");
 			if(toAdd.matches(".*[,\n]{2,}.*")){
-				throw new IllegalArgumentException("consecutive separators are not allowed");
+				throw new IllegalArgumentException("Consecutive separators are not allowed");
 			}
 			for (String stringNumber : toAdd.split(",") ) {
 				numbers = stringNumber.split("\n");
@@ -83,7 +84,7 @@ public class StringCalculator {
 			String separator = toAdd.replaceFirst("\n.*$", "");
 			separator = separator.replaceFirst("^//", "");
 			if ( numberString.length()>0 && (numberString.matches(".*("+separator+"){2,}.*") || !numberString.matches("^\\d.*\\d$") )){
-				throw new IllegalArgumentException("the given string Does no match format: "+"\"//[delimiter]\\n[numbers…]\"");
+				throw new IllegalArgumentException("The given string Does no match format: "+"\"//[delimiter]\\n[numbers…]\"");
 			}
 			numbers = numberString.split(separator);
 
@@ -101,8 +102,9 @@ public class StringCalculator {
 			String numbString = toAdd.replaceAll("^//.\n", "");
 			String separator2 = toAdd.replaceFirst("\n.*$", "");
 			separator2 = separator2.replaceFirst("^//", "");
+			StringBuffer negatives = new StringBuffer();
 			if ( numbString.length()>0 && (numbString.matches(".*("+separator2+"){2,}.*") || !numbString.matches("^\\d.*\\d$") )){
-				throw new IllegalArgumentException("the given string Does no match format: "+"\"//[delimiter]\\n[numbers…]\"");
+				throw new IllegalArgumentException("The given string Does no match format: "+"\"//[delimiter]\\n[numbers…]\"");
 			}
 			numbers = numbString.split(separator2);
 
@@ -111,12 +113,14 @@ public class StringCalculator {
 					returnValue += Integer.valueOf(number);
 				}else if(number.length()>0){
 					if(number.contains("-")){
-						throw new IllegalArgumentException("negative numbers are not allowed");					
+						negatives.append(",").append(number);
 					}
-					throw new IllegalArgumentException("The number: \""+number+"\" is not in the correct format");					
 				}
 			}
-			
+			if (negatives.length()>0){
+				throw new IllegalArgumentException("Negative numbers are not allowed: ".concat(negatives.toString().
+						replaceFirst(",", "")));					
+			}
 			return returnValue;
 		default:
 			throw new IllegalArgumentException("Version: {"+version+"} is no supported");
