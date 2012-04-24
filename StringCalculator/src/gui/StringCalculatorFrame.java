@@ -155,12 +155,11 @@ public class StringCalculatorFrame extends JFrame{
 
 	private void runExample() {
 		StringBuffer toAdd = new StringBuffer();
-		if (getCombo().getSelectedIndex() != 0 && getCombo().getSelectedIndex() != -1) {
 			toAdd.append("\n");
 			toAdd.append("Call StringCalculator.add function with arguments: {".concat(getTextField().getText()).
-					concat("} and {").concat(String.valueOf(getCombo().getSelectedIndex())).concat("}\n"));
+					concat("}\n"));
 			try{
-				toAdd.append(StringCalculator.add(getTextField().getText(),getCombo().getSelectedIndex()));
+				toAdd.append(StringCalculator.add(getTextField().getText()));
 				toAdd.append("\n");
 			}
 			catch (Exception e) {
@@ -168,7 +167,6 @@ public class StringCalculatorFrame extends JFrame{
 			}
 			getTestingArea().setText(getTestingArea().getText().concat(toAdd.toString()));
 			getTestingArea().getFontMetrics(getTestingArea().getFont());
-		}
 
 	}
 
