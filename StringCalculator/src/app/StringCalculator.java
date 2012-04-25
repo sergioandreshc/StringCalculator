@@ -39,6 +39,9 @@ public class StringCalculator {
 		if (toAdd.matches("^//.\n.*$")){
 			numbString= toAdd.replaceFirst("^//.\n", "");
 			separatorString = toAdd.replaceFirst("\n.*$", "").replaceFirst("^//", "");
+			if (!numbString.replaceAll("[-\\d"+separatorString+"]", "").equals("")){
+				throw new IllegalArgumentException("A different separator is being used instead of the one set");
+			}
 			numbString = numbString.replaceAll(separatorString, ",");
 		}
 		else{
