@@ -1,5 +1,7 @@
 package app;
 
+import gui.StringCalculatorFrame;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -45,17 +47,16 @@ public class AppLlauncher {
 		}
 		
 		if (fail){
-			System.out.println("Application failed:\n");
-			System.out.println(testingLog.toString());
+			testingLog.append("Application failed:\n");
 		}else{
-			System.out.println("Application is working fine ");
+			testingLog.append("Application is working fine ");
 		}
 
+		System.out.println(testingLog.toString());
 
-
-		//		StringCalculatorFrame frame = new StringCalculatorFrame();
-		//		frame.getTestingArea().setText(testingLog.toString());
-		//		frame.setVisible(true);
+		StringCalculatorFrame frame = new StringCalculatorFrame();
+		frame.getTestingArea().setText(testingLog.toString());
+		frame.setVisible(true);
 	}
 
  }
